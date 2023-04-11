@@ -7,23 +7,7 @@ import {check2FAParams} from './two_fa_check.js'
 let success = {
     success: true,
     code: 200,
-    data: {}
-} 
-
-let failureNA = {
-    success: false,
-    code: 403, // Forbidden
-    errors: {
-        message: "PIN 2FA is not available"
-    }
-}
-
-let failurePinIsRequired = {
-    success: false,
-    code: 400, // Forbidden
-    errors: {
-        message: "PIN is required"
-    }
+    data: "Dummy request with 2FA"
 }
 
 let failure2FARequired = {
@@ -42,33 +26,19 @@ let failure2FARequired = {
     }
 }
 
-let failureWrongPin = {
-    success: false,
-    code: 403, // Forbidden
-    errors: {
-        message: "Wrong PIN code"
-    }
-}
-
-let failureWrongPinValidation = {
+let failure2FAError = {
     success: false,
     code: 422, // Forbidden
     errors: {
-        message: "Wrong PIN code 422",
+        message: "2FA erors",
         details: {
-            is_two_factor_auth: true,
-            pin: [
-                {
-                    translation_key: "pin.wrong_code",
-                    replacements: {}
-                }
-            ]
+            is_two_factor_auth: true
         }
     }
 }
 
 
-export const list2FA = (req, res) => {
+export const dummyWith2FA = (req, res) => {
     console.log(`twoFAState.value: ${twoFAState.value}`)
 
     let list = twoFAState.list
@@ -77,7 +47,6 @@ export const list2FA = (req, res) => {
 
 
     let is2FANeeded = 
-    false &&
     !twoFAParams.withParams && 
     is2FARequired(req, twoFAState.value, true, true, twoFAState)
     
@@ -96,10 +65,9 @@ export const list2FA = (req, res) => {
     if (is2FANeeded) {
         response = failure2FARequired
     } else if (twoFAParams.withParams && twoFAParams.isError) {
-        response = failureWrongPinValidation
+        response = failure2FAError
     } else {
         response = success
-        response.data.list = twoFAState.list
     }
 
     res.status(response.code).json(response)
