@@ -34,6 +34,24 @@ function check2FAAuth(twoFAParams, twoFaState) {
             withParams: true,
             isError: false
         }
+    } else if (twoFAParams.type == TWO_FA_TYPE.BIOMETRIC) {
+        // "biometric": { // Необязательный, необходим с type=biometric
+        //     "challenge_uuid": "{{challenge_uuid}}",
+        //     "challenge": "{{encrypted_challenge}}",
+        //     "biometric_uuid": "{{biometric_uuid}}"
+        // }
+
+        if (twoFaState.biometric.challenge == undefined || twoFaState.biometric.key == undefined) {
+            return {
+                withParams: true,
+                isError: true
+            }
+        }
+
+        return {
+            withParams: true,
+            isError: twoFAParams.biometric.challenge != Number(twoFaState.biometric.challenge) + Number(twoFaState.biometric.key)
+        }
     } else {
         return {
             withParams: true,

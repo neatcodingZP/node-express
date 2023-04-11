@@ -6,6 +6,13 @@ var twoFAState = {
     value: 1,
     pinCode: undefined,
     emailCode: undefined,
+
+    biometric: {
+        challenge: undefined,
+        key: undefined,
+        biometric_uuid: undefined
+    },
+
     list: [
         {
             type: TWO_FA_TYPE.PIN,
