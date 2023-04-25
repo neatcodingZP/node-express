@@ -7,11 +7,12 @@ var twoFAState = {
     pinCode: undefined,
     emailCode: undefined,
 
-    biometric: {
-        challenge: undefined,
-        key: undefined,
-        biometric_uuid: undefined
-    },
+    biometric: undefined,
+    googleOTP: undefined,
+    // {
+    //     challenge: undefined,
+    //     key: undefined
+    // },
 
     list: [
         {

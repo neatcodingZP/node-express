@@ -89,6 +89,15 @@ export const list2FA = (req, res) => {
             list
                 .filter(element => element.isEnabled == true)
                 .map(element => element.type)
+
+                if (twoFAState.biometric != undefined) {
+                    failure2FARequired.errors.details.biometric = {
+                        uuid: "challenge_uuid",
+                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    }
+                } else {
+                    failure2FARequired.errors.details.biometric = undefined
+                }   
     }
 
 

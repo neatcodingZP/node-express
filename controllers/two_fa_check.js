@@ -25,14 +25,16 @@ function check2FAAuth(twoFAParams, twoFaState) {
             isError: twoFAParams.pin.code != twoFaState.pinCode
         }
     } else if (twoFAParams.type == TWO_FA_TYPE.EMAIL) {
+        console.log(`check Email, one_time_password: ${twoFAParams.email.one_time_password}, twoFaState.emailCode: ${twoFaState.emailCode}`)
+
         return {
             withParams: true,
-            isError: twoFAParams.email.one_time_password != twoFaState.pinCode
+            isError: twoFAParams.email.one_time_password != twoFaState.emailCode
         }
     } else if (twoFAParams.type == TWO_FA_TYPE.GOOGLE) {
         return {
             withParams: true,
-            isError: false
+            isError: twoFAParams.google.one_time_password != twoFaState.googleOTP
         }
     } else if (twoFAParams.type == TWO_FA_TYPE.BIOMETRIC) {
         // "biometric": { // Необязательный, необходим с type=biometric
@@ -41,7 +43,7 @@ function check2FAAuth(twoFAParams, twoFaState) {
         //     "biometric_uuid": "{{biometric_uuid}}"
         // }
 
-        if (twoFaState.biometric.challenge == undefined || twoFaState.biometric.key == undefined) {
+        if (twoFaState.biometric == undefined) {
             return {
                 withParams: true,
                 isError: true
@@ -50,7 +52,7 @@ function check2FAAuth(twoFAParams, twoFaState) {
 
         return {
             withParams: true,
-            isError: twoFAParams.biometric.challenge != Number(twoFaState.biometric.challenge) + Number(twoFaState.biometric.key)
+            isError: twoFAParams.biometric.challenge != Number(twoFaState.biometric.challenge) // + Number(twoFaState.biometric.key)
         }
     } else {
         return {

@@ -12,22 +12,10 @@ let failureNA = {
     }
 }
 
-
-let successChallenge = {
-    success: true,
-    code: 200,
-    data: {
-        uuid: "uuid_777",
-        challenge: "555"
-    }
-}
-
 let successAdd = {
     success: true,
     code: 200,
-    data: {
-        uuid: "biometric_uuid_12"
-    }
+    data: null
 }
 
 let errorAdd = {
@@ -68,49 +56,55 @@ let errorDelete2FARequired = {
     }
 }
 
-
-
-export const getChallenge2FA = (req, res) => {
-    console.log(`twoFAState.value: ${twoFAState.value}`)
-
-    twoFAState.value = twoFAState.value + 1
-
-    var response = successChallenge
-
-    twoFAState.biometric.challenge = Number(successChallenge.data.challenge)
-
-    res.status(response.code).json(response)
-}
-
 export const addBiometric2FA = (req, res) => {
     console.log(`twoFAState.value: ${twoFAState.value}`)
 
     // {
-    //     "uuid": "{{challenge_uuid}}",
-    //     "challenge": "{{encrypted_challenge}}",
     //     "name": "{{biometric_name}}",
     //     "public_key": "{{biometric_public_key}}"
     // }
 
     let list = twoFAState.list
+    let isAvailable = list.find(element => element.type == TWO_FA_TYPE.BIOMETRIC) != undefined
     let biometricStatus = list.find(element => element.type == TWO_FA_TYPE.BIOMETRIC)
+
+    let twoFAParams = check2FAParams(req, twoFAState)
+
+    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, biometricStatus.isEnabled == false, twoFAState)
+    
+    if (!is2FANeeded) {
+        twoFAState.value = twoFAState.value + 1
+    } else {
+        errorDelete2FARequired.errors.details.allowed_types = 
+            list
+                .filter(element => element.isEnabled == true)
+                .map(element => element.type)
+
+                if (twoFAState.biometric != undefined) {
+                    errorDelete2FARequired.errors.details.biometric = {
+                        uuid: "challenge_uuid",
+                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    }
+                } else {
+                    errorDelete2FARequired.errors.details.biometric = undefined
+                }         
+    }
 
     // check challenge and key
 
-    let challenge = req.body.challenge
-    let key = req.body.public_key
-
     var response = undefined
 
-
-    if (challenge == (Number(twoFAState.biometric.challenge) + Number(key)) ) {
+    if (is2FANeeded) {
+        response = errorDelete2FARequired
+    } else if (true) {
         biometricStatus.isEnabled = true
 
         twoFAState.value = twoFAState.value + 1
         
-        twoFAState.biometric.key = key
-
-        twoFAState.biometric.biometric_uuid = successAdd.data.uuid
+        twoFAState.biometric = {
+            key: req.body.public_key,
+            challenge: "555"
+        }
 
         response = successAdd
     } else {
@@ -142,15 +136,15 @@ export const deleteBiometric2FA = (req, res) => {
             list
                 .filter(element => element.isEnabled == true)
                 .map(element => element.type)
-    }
 
-    if (isAvailable && !is2FANeeded && !twoFAParams.isError && biometricStatus.isEnabled == true) {
-        biometricStatus.isEnabled = false
-        twoFAState.biometric = {
-            challenge: undefined,
-            key: undefined,
-            biometric_uuid: undefined
-        }
+                if (twoFAState.biometric != undefined) {
+                    errorDelete2FARequired.errors.details.biometric = {
+                        uuid: "challenge_uuid",
+                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    }
+                } else {
+                    errorDelete2FARequired.errors.details.biometric = undefined
+                }        
     }
 
     var response = undefined
@@ -161,6 +155,9 @@ export const deleteBiometric2FA = (req, res) => {
     } else if (twoFAParams.withParams && twoFAParams.isError) {
         response = errorDelete
     } else {
+        biometricStatus.isEnabled = false
+        twoFAState.biometric = undefined
+
         response = successDelete
     }
 

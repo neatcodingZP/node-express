@@ -22,6 +22,12 @@ let failure2FARequired = {
                 "google", // Необязательный, присутствует если активировано
                 "email" // Необязательный, присутствует если активировано
             ]
+            // ,
+
+            // biometric: { // Необязательный, присутствует если в allowed_types содержится "biometric"
+            //     uuid: "{{challenge_uuid}}",
+            //     challenge: "{{encrypted_challenge}}"
+            // }
         }
     }
 }
@@ -58,12 +64,22 @@ export const dummyWith2FA = (req, res) => {
             list
                 .filter(element => element.isEnabled == true)
                 .map(element => element.type)
+
+                if (twoFAState.biometric != undefined) {
+                    failure2FARequired.errors.details.biometric = {
+                        uuid: "challenge_uuid",
+                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    }
+                } else {
+                    failure2FARequired.errors.details.biometric = undefined
+                }
     }
 
 
     var response = undefined
     if (is2FANeeded) {
         response = failure2FARequired
+        
     } else if (twoFAParams.withParams && twoFAParams.isError) {
         response = failure2FAError
     } else {

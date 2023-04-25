@@ -67,6 +67,15 @@ export const addPin2FA = (req, res) => {
             list
                 .filter(element => element.isEnabled == true)
                 .map(element => element.type)
+
+                if (twoFAState.biometric != undefined) {
+                    failure2FARequired.errors.details.biometric = {
+                        uuid: "challenge_uuid",
+                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    }
+                } else {
+                    failure2FARequired.errors.details.biometric = undefined
+                }         
     }
 
     if (isAvailable && pin != undefined && !is2FANeeded && !twoFAParams.isError && pinStatus.isEnabled == false) {
@@ -116,6 +125,15 @@ export const deletePin2FA = (req, res) => {
             list
                 .filter(element => element.isEnabled == true)
                 .map(element => element.type)
+
+                if (twoFAState.biometric != undefined) {
+                    failure2FARequired.errors.details.biometric = {
+                        uuid: "challenge_uuid",
+                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    }
+                } else {
+                    failure2FARequired.errors.details.biometric = undefined
+                }         
     }
 
     if (isAvailable && !is2FANeeded && !twoFAParams.isError && pinStatus.isEnabled == true) {
