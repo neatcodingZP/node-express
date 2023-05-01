@@ -17,19 +17,35 @@ var twoFAState = {
     list: [
         {
             type: TWO_FA_TYPE.PIN,
-            isEnabled: false,
+            is_enabled: false,
         },
         {
             type: TWO_FA_TYPE.EMAIL,
-            isEnabled: false
+            is_enabled: false
         },
         {
             type: TWO_FA_TYPE.GOOGLE,
-            isEnabled: false
+            is_enabled: false
         },
         {
             type: TWO_FA_TYPE.BIOMETRIC,
-            isEnabled: false
+            is_enabled: false,
+            list: [ 
+                {
+                    uuid: "{{biometric_uuid}}",
+                    name: "device name 1",
+                    is_current_device: true,
+                    created_at: "2023-12-31 23:59:59",
+                    used_at: "2023-12-31 23:59:59"
+                },
+                {
+                    uuid: "{{biometric_uuid}}",
+                    name: "device name 2",
+                    is_current_device: false,
+                    created_at: "2023-12-31 23:59:59",
+                    used_at: "2023-12-31 23:59:59"
+                }
+            ]
         }
 
     ],
