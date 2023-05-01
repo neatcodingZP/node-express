@@ -87,7 +87,7 @@ export const list2FA = (req, res) => {
     } else {
         failure2FARequired.errors.details.allowed_types = 
             list
-                .filter(element => element.isEnabled == true)
+                .filter(element => element.is_enabled == true)
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
@@ -108,7 +108,7 @@ export const list2FA = (req, res) => {
         response = failureWrongPinValidation
     } else {
         response = success
-        response.data.list = twoFAState.list
+        response.data = twoFAState.list
     }
 
     res.status(response.code).json(response)

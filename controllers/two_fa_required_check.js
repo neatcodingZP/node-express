@@ -1,7 +1,7 @@
 export const is2FARequired = (req, value, isAvailable, isProperState, twoFaState) => {
 
 
-    let isAnyAvailable = twoFaState.list.find(element => element.isEnabled == true) != undefined
+    let isAnyAvailable = twoFaState.list.find(element => element.is_enabled == true) != undefined
 
     if (!isAnyAvailable) return false
 

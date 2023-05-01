@@ -70,14 +70,14 @@ export const addBiometric2FA = (req, res) => {
 
     let twoFAParams = check2FAParams(req, twoFAState)
 
-    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, biometricStatus.isEnabled == false, twoFAState)
+    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, biometricStatus.is_enabled == false, twoFAState)
     
     if (!is2FANeeded) {
         twoFAState.value = twoFAState.value + 1
     } else {
         errorDelete2FARequired.errors.details.allowed_types = 
             list
-                .filter(element => element.isEnabled == true)
+                .filter(element => element.is_enabled == true)
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
@@ -97,7 +97,7 @@ export const addBiometric2FA = (req, res) => {
     if (is2FANeeded) {
         response = errorDelete2FARequired
     } else if (true) {
-        biometricStatus.isEnabled = true
+        biometricStatus.is_enabled = true
 
         twoFAState.value = twoFAState.value + 1
         
@@ -127,14 +127,14 @@ export const deleteBiometric2FA = (req, res) => {
 
     let twoFAParams = check2FAParams(req, twoFAState)
 
-    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, biometricStatus.isEnabled == true, twoFAState)
+    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, biometricStatus.is_enabled == true, twoFAState)
     
     if (!is2FANeeded) {
         twoFAState.value = twoFAState.value + 1
     } else {
         errorDelete2FARequired.errors.details.allowed_types = 
             list
-                .filter(element => element.isEnabled == true)
+                .filter(element => element.is_enabled == true)
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
@@ -155,7 +155,7 @@ export const deleteBiometric2FA = (req, res) => {
     } else if (twoFAParams.withParams && twoFAParams.isError) {
         response = errorDelete
     } else {
-        biometricStatus.isEnabled = false
+        biometricStatus.is_enabled = false
         twoFAState.biometric = undefined
 
         response = successDelete

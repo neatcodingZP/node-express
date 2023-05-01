@@ -75,14 +75,14 @@ export const addEmail2FA = (req, res) => {
 
     let twoFAParams = check2FAParams(req, twoFAState)
 
-    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, emailStatus.isEnabled == false, twoFAState)
+    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, emailStatus.is_enabled == false, twoFAState)
     
     if (!is2FANeeded) {
         twoFAState.value = twoFAState.value + 1
     } else {
         error2FARequired.errors.details.allowed_types = 
             list
-                .filter(element => element.isEnabled == true)
+                .filter(element => element.is_enabled == true)
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
@@ -103,8 +103,8 @@ export const addEmail2FA = (req, res) => {
         response = errorAdd
     } else if (is2FANeeded) {
         response = error2FARequired
-    } else if (emailStatus.isEnabled == false) {
-        emailStatus.isEnabled = true
+    } else if (emailStatus.is_enabled == false) {
+        emailStatus.is_enabled = true
 
         twoFAState.value = twoFAState.value + 1
         twoFAState.emailCode = undefined
@@ -128,14 +128,14 @@ export const deleteEmail2FA = (req, res) => {
     let twoFAParams = check2FAParams(req, twoFAState)
     console.log(`deleteEmail2FA, twoFAParams: ${twoFAParams}`)
 
-    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, emailStatus.isEnabled == true, twoFAState)
+    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, emailStatus.is_enabled == true, twoFAState)
     
     if (!is2FANeeded) {
         twoFAState.value = twoFAState.value + 1
     } else {
         error2FARequired.errors.details.allowed_types = 
             list
-                .filter(element => element.isEnabled == true)
+                .filter(element => element.is_enabled == true)
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
@@ -157,7 +157,7 @@ export const deleteEmail2FA = (req, res) => {
     } else if (twoFAParams.withParams && twoFAParams.isError) {
         response = errorDelete
     } else {
-        emailStatus.isEnabled = false
+        emailStatus.is_enabled = false
         twoFAState.emailCode = undefined
 
         response = success

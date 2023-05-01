@@ -62,7 +62,7 @@ export const dummyWith2FA = (req, res) => {
     } else {
         failure2FARequired.errors.details.allowed_types = 
             list
-                .filter(element => element.isEnabled == true)
+                .filter(element => element.is_enabled == true)
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {

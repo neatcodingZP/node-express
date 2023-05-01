@@ -75,14 +75,14 @@ export const addGoogle2FA = (req, res) => {
 
     let twoFAParams = check2FAParams(req, twoFAState)
 
-    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, googleStatus.isEnabled == false, twoFAState)
+    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, googleStatus.is_enabled == false, twoFAState)
     
     if (!is2FANeeded) {
         twoFAState.value = twoFAState.value + 1
     } else {
         error2FARequired.errors.details.allowed_types = 
             list
-                .filter(element => element.isEnabled == true)
+                .filter(element => element.is_enabled == true)
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
@@ -103,8 +103,8 @@ export const addGoogle2FA = (req, res) => {
         response = errorAdd
     } else if (is2FANeeded) {
         response = error2FARequired
-    } else if (googleStatus.isEnabled == false) {
-        googleStatus.isEnabled = true
+    } else if (googleStatus.is_enabled == false) {
+        googleStatus.is_enabled = true
 
         twoFAState.value = twoFAState.value + 1
         //twoFAState.googleOTP = undefined
@@ -128,14 +128,14 @@ export const deleteGoogle2FA = (req, res) => {
     let twoFAParams = check2FAParams(req, twoFAState)
     console.log(`deleteGoogle2FA, twoFAParams: ${twoFAParams}`)
 
-    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, googleStatus.isEnabled == true, twoFAState)
+    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, googleStatus.is_enabled == true, twoFAState)
     
     if (!is2FANeeded) {
         twoFAState.value = twoFAState.value + 1
     } else {
         error2FARequired.errors.details.allowed_types = 
             list
-                .filter(element => element.isEnabled == true)
+                .filter(element => element.is_enabled == true)
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
@@ -157,7 +157,7 @@ export const deleteGoogle2FA = (req, res) => {
     } else if (twoFAParams.withParams && twoFAParams.isError) {
         response = errorDelete
     } else {
-        googleStatus.isEnabled = false
+        googleStatus.is_enabled = false
         twoFAState.googleOTP = undefined
 
         response = success

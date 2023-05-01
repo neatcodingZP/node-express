@@ -57,7 +57,7 @@ export const addPin2FA = (req, res) => {
     let is2FANeeded = 
     pin != undefined &&
     !twoFAParams.withParams && 
-    is2FARequired(req, twoFAState.value, isAvailable, pinStatus.isEnabled == false, twoFAState)
+    is2FARequired(req, twoFAState.value, isAvailable, pinStatus.is_enabled == false, twoFAState)
     
 
     if (!is2FANeeded) {
@@ -65,7 +65,7 @@ export const addPin2FA = (req, res) => {
     } else {
         failure2FARequired.errors.details.allowed_types = 
             list
-                .filter(element => element.isEnabled == true)
+                .filter(element => element.is_enabled == true)
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
@@ -78,8 +78,8 @@ export const addPin2FA = (req, res) => {
                 }         
     }
 
-    if (isAvailable && pin != undefined && !is2FANeeded && !twoFAParams.isError && pinStatus.isEnabled == false) {
-        pinStatus.isEnabled = true
+    if (isAvailable && pin != undefined && !is2FANeeded && !twoFAParams.isError && pinStatus.is_enabled == false) {
+        pinStatus.is_enabled = true
         twoFAState.pinCode = pin
     }
 
@@ -116,14 +116,14 @@ export const deletePin2FA = (req, res) => {
 
     let twoFAParams = check2FAParams(req, twoFAState)
 
-    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, pinStatus.isEnabled == true, twoFAState)
+    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, pinStatus.is_enabled == true, twoFAState)
     
     if (!is2FANeeded) {
         twoFAState.value = twoFAState.value + 1
     } else {
         failure2FARequired.errors.details.allowed_types = 
             list
-                .filter(element => element.isEnabled == true)
+                .filter(element => element.is_enabled == true)
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
@@ -136,8 +136,8 @@ export const deletePin2FA = (req, res) => {
                 }         
     }
 
-    if (isAvailable && !is2FANeeded && !twoFAParams.isError && pinStatus.isEnabled == true) {
-        pinStatus.isEnabled = false
+    if (isAvailable && !is2FANeeded && !twoFAParams.isError && pinStatus.is_enabled == true) {
+        pinStatus.is_enabled = false
         twoFAState.pinCode = undefined
     }
 
