@@ -16,7 +16,10 @@ let successRequest = {
     success: true,
     code: 200,
     data: {
-        uuid: "email_uuid"
+        uuid: "email_uuid",
+        symbols_count: 4,
+        expire_in: 20,
+        repeat_in: 22
     }
 }
 
@@ -54,7 +57,7 @@ let error2FARequired = {
 export const requestEmail2FA = (req, res) => {
     console.log(`requestEmail2FA, twoFAState.value: ${twoFAState.value}`)
 
-    twoFAState.emailCode = "otp"
+    twoFAState.emailCode = "1234"
 
     var response = successRequest
 

@@ -4,10 +4,16 @@ import {is2FARequired} from './two_fa_required_check.js'
 
 import {check2FAParams} from './two_fa_check.js'
 
-let success = {
+let successNo2FA = {
     success: true,
     code: 200,
-    data: "Dummy request with 2FA"
+    data: "Запрос отработал, 2фа не настроено"
+}
+
+let success2FA = {
+    success: true,
+    code: 200,
+    data: "Запрос отработал, 2фа пройдено"
 }
 
 let failure2FARequired = {
@@ -82,8 +88,10 @@ export const dummyWith2FA = (req, res) => {
         
     } else if (twoFAParams.withParams && twoFAParams.isError) {
         response = failure2FAError
+    } else if (twoFAParams.withParams) {
+        response = success2FA
     } else {
-        response = success
+        response = successNo2FA
     }
 
     res.status(response.code).json(response)

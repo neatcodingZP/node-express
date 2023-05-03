@@ -16,18 +16,6 @@ var twoFAState = {
 
     list: [
         {
-            type: TWO_FA_TYPE.PIN,
-            is_enabled: false,
-        },
-        {
-            type: TWO_FA_TYPE.EMAIL,
-            is_enabled: false
-        },
-        {
-            type: TWO_FA_TYPE.GOOGLE,
-            is_enabled: false
-        },
-        {
             type: TWO_FA_TYPE.BIOMETRIC,
             is_enabled: false,
             list: [ 
@@ -46,9 +34,20 @@ var twoFAState = {
                     used_at: "2023-12-31 23:59:59"
                 }
             ]
+        },
+        {
+            type: TWO_FA_TYPE.GOOGLE,
+            is_enabled: false
+        },
+        {
+            type: TWO_FA_TYPE.EMAIL,
+            is_enabled: false
+        },
+        {
+            type: TWO_FA_TYPE.PIN,
+            is_enabled: false,
         }
-
-    ],
+    ]
 }
 
 export default twoFAState
