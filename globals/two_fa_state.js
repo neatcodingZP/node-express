@@ -9,6 +9,7 @@ var twoFAState = {
 
     biometric: undefined,
     googleOTP: undefined,
+    smsCode: undefined,
     // {
     //     challenge: undefined,
     //     key: undefined
@@ -45,6 +46,10 @@ var twoFAState = {
         },
         {
             type: TWO_FA_TYPE.PIN,
+            is_enabled: false,
+        },
+        {
+            type: TWO_FA_TYPE.SMS,
             is_enabled: false,
         }
     ]

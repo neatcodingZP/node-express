@@ -33,7 +33,7 @@ let errorAdd = {
     success: false,
     code: 403,
     errors: {
-        message: "Failed to add biometric authentication"
+        message: "Failed to add email authentication"
     }
 }
 
@@ -41,7 +41,10 @@ let errorDelete = {
     success: false,
     code: 403,
     errors: {
-        message: "Failed to delete biometric authentication"
+        message: "Failed to delete email authentication",
+        details: {
+            is_two_factor_auth: true
+        }
     }
 }
 
@@ -60,6 +63,7 @@ export const requestEmail2FA = (req, res) => {
     twoFAState.emailCode = "1234"
 
     var response = successRequest
+    successRequest.data.email_code = twoFAState.emailCode
 
     res.status(response.code).json(response)
 }
@@ -95,7 +99,12 @@ export const addEmail2FA = (req, res) => {
                     }
                 } else {
                     error2FARequired.errors.details.biometric = undefined
-                }         
+                }
+
+        error2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
+        error2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode
+        error2FARequired.errors.details.google_otp = twoFAState.googleOTP == undefined ? null : twoFAState.googleOTP
+        error2FARequired.errors.details.sms_code = twoFAState.smsCode == undefined ? null : twoFAState.smsCode              
     }
 
     var response = undefined
@@ -148,7 +157,11 @@ export const deleteEmail2FA = (req, res) => {
                     }
                 } else {
                     error2FARequired.errors.details.biometric = undefined
-                }        
+                }
+                error2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
+                error2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode
+                error2FARequired.errors.details.google_otp = twoFAState.googleOTP == undefined ? null : twoFAState.googleOTP
+                error2FARequired.errors.details.sms_code = twoFAState.smsCode == undefined ? null : twoFAState.smsCode                  
     }
 
 

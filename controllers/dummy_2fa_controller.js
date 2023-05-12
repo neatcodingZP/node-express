@@ -79,6 +79,10 @@ export const dummyWith2FA = (req, res) => {
                 } else {
                     failure2FARequired.errors.details.biometric = undefined
                 }
+                failure2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
+                failure2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode
+                failure2FARequired.errors.details.google_otp = twoFAState.googleOTP == undefined ? null : twoFAState.googleOTP
+                failure2FARequired.errors.details.sms_code = twoFAState.smsCode == undefined ? null : twoFAState.smsCode                           
     }
 
 

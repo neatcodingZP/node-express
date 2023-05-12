@@ -54,6 +54,13 @@ function check2FAAuth(twoFAParams, twoFaState) {
             withParams: true,
             isError: twoFAParams.biometric.challenge != Number(twoFaState.biometric.challenge) // + Number(twoFaState.biometric.key)
         }
+    } else if (twoFAParams.type == TWO_FA_TYPE.SMS) {
+        console.log(`check Sms, one_time_password: ${twoFAParams.sms.one_time_password}, twoFaState.smsCode: ${twoFaState.smsCode}`)
+
+        return {
+            withParams: true,
+            isError: twoFAParams.sms.one_time_password != twoFaState.smsCode
+        }
     } else {
         return {
             withParams: true,

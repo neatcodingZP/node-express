@@ -75,7 +75,12 @@ export const addPin2FA = (req, res) => {
                     }
                 } else {
                     failure2FARequired.errors.details.biometric = undefined
-                }         
+                } 
+                
+                failure2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
+                failure2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode
+                failure2FARequired.errors.details.google_otp = twoFAState.googleOTP == undefined ? null : twoFAState.googleOTP
+                failure2FARequired.errors.details.sms_code = twoFAState.smsCode == undefined ? null : twoFAState.smsCode                          
     }
 
     if (isAvailable && pin != undefined && !is2FANeeded && !twoFAParams.isError && pinStatus.is_enabled == false) {
@@ -103,7 +108,10 @@ let failureWrongPin = {
     success: false,
     code: 403, // Forbidden
     errors: {
-        message: "Wrong PIN code"
+        message: "Wrong PIN code",
+        details: {
+            is_two_factor_auth: true
+        }
     }
 }
 
@@ -133,7 +141,12 @@ export const deletePin2FA = (req, res) => {
                     }
                 } else {
                     failure2FARequired.errors.details.biometric = undefined
-                }         
+                }  
+                
+                failure2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
+                failure2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode
+                failure2FARequired.errors.details.google_otp = twoFAState.googleOTP == undefined ? null : twoFAState.googleOTP
+                failure2FARequired.errors.details.sms_code = twoFAState.smsCode == undefined ? null : twoFAState.smsCode                           
     }
 
     if (isAvailable && !is2FANeeded && !twoFAParams.isError && pinStatus.is_enabled == true) {

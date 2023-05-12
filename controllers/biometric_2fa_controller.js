@@ -87,7 +87,11 @@ export const addBiometric2FA = (req, res) => {
                     }
                 } else {
                     errorDelete2FARequired.errors.details.biometric = undefined
-                }         
+                }
+                errorDelete2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
+                errorDelete2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode
+                errorDelete2FARequired.errors.details.google_otp = twoFAState.googleOTP == undefined ? null : twoFAState.googleOTP
+                errorDelete2FARequired.errors.details.sms_code = twoFAState.smsCode == undefined ? null : twoFAState.smsCode                 
     }
 
     // check challenge and key
@@ -144,7 +148,12 @@ export const deleteBiometric2FA = (req, res) => {
                     }
                 } else {
                     errorDelete2FARequired.errors.details.biometric = undefined
-                }        
+                } 
+
+                errorDelete2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
+                errorDelete2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode
+                errorDelete2FARequired.errors.details.google_otp = twoFAState.googleOTP == undefined ? null : twoFAState.googleOTP
+                errorDelete2FARequired.errors.details.sms_code = twoFAState.smsCode == undefined ? null : twoFAState.smsCode                                  
     }
 
     var response = undefined

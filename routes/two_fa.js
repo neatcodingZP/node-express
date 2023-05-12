@@ -4,6 +4,7 @@ import { addPin2FA, deletePin2FA } from '../controllers/pin_2fa_controller.js'
 import { addBiometric2FA, deleteBiometric2FA } from '../controllers/biometric_2fa_controller.js'
 import { requestEmail2FA, addEmail2FA, deleteEmail2FA } from '../controllers/email_2fa_controller.js'
 import { requestGoogleKey, addGoogle2FA, deleteGoogle2FA } from '../controllers/google_2fa_controller.js'
+import { requestSms2FA, addSms2FA, deleteSms2FA } from '../controllers/sms_2fa_controller.js'
 
 import { dummyWith2FA } from '../controllers/dummy_2fa_controller.js'
 import { list2FA } from '../controllers/list_2fa_controller.js'
@@ -52,6 +53,15 @@ router.get(`/${TWO_FA_ROUTE}/${googleRoute}`, requestGoogleKey)
 router.post(`/${TWO_FA_ROUTE}/${googleRoute}`, addGoogle2FA)
 
 router.delete(`/${TWO_FA_ROUTE}/${googleRoute}`, deleteGoogle2FA)
+
+// Sms
+let smsRoute = 'sms'
+
+router.get(`/${TWO_FA_ROUTE}/${smsRoute}`, requestSms2FA)
+
+router.post(`/${TWO_FA_ROUTE}/${smsRoute}`, addSms2FA)
+
+router.delete(`/${TWO_FA_ROUTE}/${smsRoute}`, deleteSms2FA)
 
 
 
