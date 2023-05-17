@@ -119,7 +119,8 @@ export const addBiometric2FA = (req, res) => {
 }
 
 export const deleteBiometric2FA = (req, res) => {
-    console.log(`twoFAState.value: ${twoFAState.value}`)
+    let biometric_uuid = req.params.biometric_uuid
+    console.log(`deleteBiometric2FA, biometric_uuid: ${biometric_uuid}, twoFAState.value: ${twoFAState.value}`)
 
     // {
     //     "uuid": "{{biometric_uuid}}"

@@ -34,7 +34,7 @@ let biometricRoute = 'biometric'
 
 router.post(`/${TWO_FA_ROUTE}/${biometricRoute}`, addBiometric2FA)
 
-router.delete(`/${TWO_FA_ROUTE}/${biometricRoute}`, deleteBiometric2FA)
+router.delete(`/${TWO_FA_ROUTE}/${biometricRoute}/:biometric_uuid`, deleteBiometric2FA)
 
 // Email
 let emailRoute = 'email'

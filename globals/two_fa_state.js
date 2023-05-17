@@ -21,19 +21,19 @@ var twoFAState = {
             is_enabled: false,
             list: [ 
                 {
-                    uuid: "{{biometric_uuid}}",
+                    uuid: "biometric_uuid_1",
                     name: "device name 1",
                     is_current_device: true,
                     created_at: "2023-12-31 23:59:59",
                     used_at: "2023-12-31 23:59:59"
                 },
-                {
-                    uuid: "{{biometric_uuid}}",
-                    name: "device name 2",
-                    is_current_device: false,
-                    created_at: "2023-12-31 23:59:59",
-                    used_at: "2023-12-31 23:59:59"
-                }
+                // {
+                //     uuid: "biometric_uuid_2",
+                //     name: "device name 2",
+                //     is_current_device: false,
+                //     created_at: "2023-12-31 23:59:59",
+                //     used_at: "2023-12-31 23:59:59"
+                // }
             ]
         },
         {
