@@ -13,6 +13,8 @@ app.get('/', (req, res) => {
 
 app.use(twoFARoutes)
 
+app.use(express.static('./public'))
+
 
 app.listen(PORT, () => {
     console.log(`Server started on port: ${PORT}`)
