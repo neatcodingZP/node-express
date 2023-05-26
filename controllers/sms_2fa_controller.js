@@ -18,8 +18,8 @@ let successRequest = {
     data: {
         uuid: "sms_uuid",
         symbols_count: 4,
-        expire_in: 20,
-        repeat_in: 22
+        expire_in: 30,
+        repeat_in: 40
     }
 }
 
