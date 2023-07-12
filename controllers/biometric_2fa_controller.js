@@ -110,6 +110,16 @@ export const addBiometric2FA = (req, res) => {
             challenge: "555"
         }
 
+        twoFAState.list[0].list = [
+            {
+                uuid: "biometric_uuid_1",
+                name: "device name 1",
+                is_current_device: true,
+                created_at: "2023-12-31 23:59:59",
+                used_at: "2023-12-31 23:59:59"
+            },
+        ]
+
         response = successAdd
     } else {
         response = errorAdd
@@ -167,6 +177,8 @@ export const deleteBiometric2FA = (req, res) => {
     } else {
         biometricStatus.is_enabled = false
         twoFAState.biometric = undefined
+
+        twoFAState.list[0].list = []
 
         response = successDelete
     }
