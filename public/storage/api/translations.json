@@ -165,8 +165,8 @@
       "biometric_errors_currently_unavailable": "Биометрическая авторизация недоступна в данный момент",
       "biometric_errors_security_update_required": "Ошибка биометрической авторизации. Требуется обновление службы безопасности",
       "biometric_current_device": "Текущее устройство",
-      "biometric_created_at_format": "Создано: :value",
-      "biometric_used_at_format": "Использовалось: :value",
+      "biometric_created_at_format": "Созданa: :value",
+      "biometric_used_at_format": "Использовалaсь: :value",
       "ask_add_title": "Добавить двухфакторную авторизацию",
       "ask_add_description": "Рекомендуем добавить как минимум один метод двухфаторной авторизации. Это необходимо для лучшей безопасности транзакций",
       "list_title": "Методы 2х-факторной авторизации"
@@ -364,8 +364,8 @@
       "biometric_errors_currently_unavailable": "Биометрическая авторизация недоступна в данный момент",
       "biometric_errors_security_update_required": "Ошибка биометрической авторизации. Требуется обновление службы безопасности",
       "biometric_current_device": "Текущее устройство",
-      "biometric_created_at_format": "Создано: :value",
-      "biometric_used_at_format": "Использовалось: :value",
+      "biometric_created_at_format": "Созданa: :value",
+      "biometric_used_at_format": "Использовалaсь: :value",
       "ask_add_title": "Добавить двухфакторную авторизацию",
       "ask_add_description": "Рекомендуем добавить как минимум один метод двухфаторной авторизации. Это необходимо для лучшей безопасности транзакций",
       "list_title": "Методы 2х-факторной авторизации"
@@ -563,8 +563,8 @@
       "biometric_errors_currently_unavailable": "Биометрическая авторизация недоступна в данный момент",
       "biometric_errors_security_update_required": "Ошибка биометрической авторизации. Требуется обновление службы безопасности",
       "biometric_current_device": "Текущее устройство",
-      "biometric_created_at_format": "Создано: :value",
-      "biometric_used_at_format": "Использовалось: :value",
+      "biometric_created_at_format": "Созданa: :value",
+      "biometric_used_at_format": "Использовалaсь: :value",
       "ask_add_title": "Добавить двухфакторную авторизацию",
       "ask_add_description": "Рекомендуем добавить как минимум один метод двухфаторной авторизации. Это необходимо для лучшей безопасности транзакций",
       "list_title": "Методы 2х-факторной авторизации"
