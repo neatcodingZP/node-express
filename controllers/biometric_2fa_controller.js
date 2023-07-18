@@ -113,7 +113,7 @@ export const addBiometric2FA = (req, res) => {
         twoFAState.list[0].list = [
             {
                 uuid: "biometric_uuid_1",
-                name: "device name 1",
+                name: "Huliphone XS Pro",
                 is_current_device: true,
                 created_at: "2023-12-31 23:59:59",
                 used_at: "2023-12-31 23:59:59"
