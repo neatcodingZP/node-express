@@ -7,6 +7,8 @@ const app = express()
 
 app.use(express.json())
 
+app.use((req, res, next) => setTimeout(next, 50))
+
 app.get('/', (req, res) => {
     res.send('<h1>Hello Express!</h1>')
 })

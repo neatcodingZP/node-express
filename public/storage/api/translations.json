@@ -79,6 +79,7 @@
       "code_is_valid_seconds_format": "СМС код действителен еще :value секунд",
       "code_had_expired": "СМС код уже не действителен",
       "send_again": "Отправить СМС",
+      "unable_send_sms_at_the_moment": "Не удалось отправить СМС-код",
       "can_ask_another_sms_in_seconds_format": "СМС код может быть отправлен через  :value секунд"
     },
     "two_fa": {
@@ -166,7 +167,7 @@
       "biometric_current_device": "Текущее устройство",
       "biometric_created_at_format": "Созданa: :value",
       "biometric_used_at_format": "Использовалaсь: :value",
-      "ask_add_title": "Добавить двухфакторную авторизацию",
+      "ask_add_title": "Добавить 2х-факторную авторизацию",
       "ask_add_description": "Рекомендуем добавить как минимум один метод двухфаторной авторизации. Это необходимо для лучшей безопасности транзакций",
       "list_title": "Методы 2х-факторной авторизации"
     },
@@ -277,6 +278,7 @@
       "code_is_valid_seconds_format": "СМС код действителен еще :value секунд",
       "code_had_expired": "СМС код уже не действителен",
       "send_again": "Отправить СМС",
+      "unable_send_sms_at_the_moment": "Не удалось отправить СМС-код",
       "can_ask_another_sms_in_seconds_format": "СМС код может быть отправлен через  :value секунд"
     },
     "two_fa": {
@@ -364,7 +366,7 @@
       "biometric_current_device": "Текущее устройство",
       "biometric_created_at_format": "Созданa: :value",
       "biometric_used_at_format": "Использовалaсь: :value",
-      "ask_add_title": "Добавить двухфакторную авторизацию",
+      "ask_add_title": "Добавить 2х-факторную авторизацию",
       "ask_add_description": "Рекомендуем добавить как минимум один метод двухфаторной авторизации. Это необходимо для лучшей безопасности транзакций",
       "list_title": "Методы 2х-факторной авторизации"
     },
@@ -475,6 +477,7 @@
       "code_is_valid_seconds_format": "СМС код действителен еще :value секунд",
       "code_had_expired": "СМС код уже не действителен",
       "send_again": "Отправить СМС",
+      "unable_send_sms_at_the_moment": "Не удалось отправить СМС-код",
       "can_ask_another_sms_in_seconds_format": "СМС код может быть отправлен через  :value секунд"
     },
     "two_fa": {
@@ -562,7 +565,7 @@
       "biometric_current_device": "Текущее устройство",
       "biometric_created_at_format": "Созданa: :value",
       "biometric_used_at_format": "Использовалaсь: :value",
-      "ask_add_title": "Добавить двухфакторную авторизацию",
+      "ask_add_title": "Добавить 2х-факторную авторизацию",
       "ask_add_description": "Рекомендуем добавить как минимум один метод двухфаторной авторизации. Это необходимо для лучшей безопасности транзакций",
       "list_title": "Методы 2х-факторной авторизации"
     },
