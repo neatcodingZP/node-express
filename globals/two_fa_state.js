@@ -4,7 +4,7 @@ import TWO_FA_TYPE from './two_fa_type.js'
 
 var twoFAState = {
     value: 1,
-    pinCode: undefined,
+    pinCode: undefined, //'1234',
     emailCode: undefined,
 
     biometric: undefined,
