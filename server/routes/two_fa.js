@@ -9,8 +9,6 @@ import { requestSms2FA, addSms2FA, deleteSms2FA } from '../controllers/sms_2fa_c
 import { dummyWith2FA } from '../controllers/dummy_2fa_controller.js'
 import { list2FA } from '../controllers/list_2fa_controller.js'
 
-import twoFAState from '../globals/two_fa_state.js'
-
 
 const router = Router()
 

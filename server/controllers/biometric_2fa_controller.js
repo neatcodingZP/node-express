@@ -1,5 +1,5 @@
-import twoFAState from '../globals/two_fa_state.js'
-import TWO_FA_TYPE from '../globals/two_fa_type.js'
+import twoFAState from '../../globals/two_fa_state.js'
+import TWO_FA_TYPE from '../../globals/two_fa_type.js'
 import {is2FARequired} from './two_fa_required_check.js'
 
 import {check2FAParams} from './two_fa_check.js'

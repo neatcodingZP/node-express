@@ -1,19 +1,28 @@
-import twoFAState from '../globals/two_fa_state.js'
-import TWO_FA_TYPE from '../globals/two_fa_type.js'
+import twoFAState from '../../globals/two_fa_state.js'
 import {is2FARequired} from './two_fa_required_check.js'
 
 import {check2FAParams} from './two_fa_check.js'
 
-let successNo2FA = {
+let success = {
     success: true,
     code: 200,
-    data: "Запрос отработал, 2фа не настроено"
+    data: {}
+} 
+
+let failureNA = {
+    success: false,
+    code: 403, // Forbidden
+    errors: {
+        message: "PIN 2FA is not available"
+    }
 }
 
-let success2FA = {
-    success: true,
-    code: 200,
-    data: "Запрос отработал, 2фа пройдено"
+let failurePinIsRequired = {
+    success: false,
+    code: 400, // Forbidden
+    errors: {
+        message: "PIN is required"
+    }
 }
 
 let failure2FARequired = {
@@ -28,29 +37,37 @@ let failure2FARequired = {
                 "google", // Необязательный, присутствует если активировано
                 "email" // Необязательный, присутствует если активировано
             ]
-            // ,
-
-            // biometric: { // Необязательный, присутствует если в allowed_types содержится "biometric"
-            //     uuid: "{{challenge_uuid}}",
-            //     challenge: "{{encrypted_challenge}}"
-            // }
         }
     }
 }
 
-let failure2FAError = {
+let failureWrongPin = {
+    success: false,
+    code: 403, // Forbidden
+    errors: {
+        message: "Wrong PIN code"
+    }
+}
+
+let failureWrongPinValidation = {
     success: false,
     code: 422, // Forbidden
     errors: {
-        message: "2FA erors",
+        message: "Wrong PIN code 422",
         details: {
-            is_two_factor_auth: true
+            is_two_factor_auth: true,
+            pin: [
+                {
+                    translation_key: "pin.wrong_code",
+                    replacements: {}
+                }
+            ]
         }
     }
 }
 
 
-export const dummyWith2FA = (req, res) => {
+export const list2FA = (req, res) => {
     console.log(`twoFAState.value: ${twoFAState.value}`)
 
     let list = twoFAState.list
@@ -59,6 +76,7 @@ export const dummyWith2FA = (req, res) => {
 
 
     let is2FANeeded = 
+    false &&
     !twoFAParams.withParams && 
     is2FARequired(req, twoFAState.value, true, true, twoFAState)
     
@@ -79,23 +97,22 @@ export const dummyWith2FA = (req, res) => {
                 } else {
                     failure2FARequired.errors.details.biometric = undefined
                 }
+                
                 failure2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
                 failure2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode
                 failure2FARequired.errors.details.google_otp = twoFAState.googleOTP == undefined ? null : twoFAState.googleOTP
-                failure2FARequired.errors.details.sms_code = twoFAState.smsCode == undefined ? null : twoFAState.smsCode                           
+                failure2FARequired.errors.details.sms_code = twoFAState.smsCode == undefined ? null : twoFAState.smsCode                         
     }
 
 
     var response = undefined
     if (is2FANeeded) {
         response = failure2FARequired
-        
     } else if (twoFAParams.withParams && twoFAParams.isError) {
-        response = failure2FAError
-    } else if (twoFAParams.withParams) {
-        response = success2FA
+        response = failureWrongPinValidation
     } else {
-        response = successNo2FA
+        response = success
+        response.data = twoFAState.list
     }
 
     res.status(response.code).json(response)

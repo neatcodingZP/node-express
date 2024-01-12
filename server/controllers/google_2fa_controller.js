@@ -1,5 +1,5 @@
-import twoFAState from '../globals/two_fa_state.js'
-import TWO_FA_TYPE from '../globals/two_fa_type.js'
+import twoFAState from '../../globals/two_fa_state.js'
+import TWO_FA_TYPE from '../../globals/two_fa_type.js'
 import {is2FARequired} from './two_fa_required_check.js'
 
 import {check2FAParams} from './two_fa_check.js'
@@ -8,18 +8,16 @@ let failureNA = {
     success: false,
     code: 403, // Forbidden
     errors: {
-        message: "Email 2FA is not available"
+        message: "Google 2FA is not available"
     }
 }
 
-let successRequest = {
+let successRequestKey = {
     success: true,
     code: 200,
     data: {
-        uuid: "email_uuid",
-        symbols_count: 4,
-        expire_in: 30,
-        repeat_in: 40
+        secret_key: "XYZ123XYZ123", //"{{google_2fa_secret_key}}",
+        qr_code: "Secret QR code text" //"{{base64_qr_code}}"
     }
 }
 
@@ -33,7 +31,7 @@ let errorAdd = {
     success: false,
     code: 403,
     errors: {
-        message: "Failed to add email authentication"
+        message: "Failed to add google authentication"
     }
 }
 
@@ -41,7 +39,7 @@ let errorDelete = {
     success: false,
     code: 403,
     errors: {
-        message: "Failed to delete email authentication",
+        message: "Failed to delete google authentication",
         details: {
             is_two_factor_auth: true
         }
@@ -52,37 +50,36 @@ let error2FARequired = {
     success: false,
     code: 406,
     errors: {
-        message: "Failed to add/delete email authentication - 2FA required",
+        message: "Failed to add/delete google authentication - 2FA required",
         details: {}
     }
 }
 
-export const requestEmail2FA = (req, res) => {
-    console.log(`requestEmail2FA, twoFAState.value: ${twoFAState.value}`)
+export const requestGoogleKey = (req, res) => {
+    console.log(`requestGoogleKey...`)
 
-    twoFAState.emailCode = "1234"
+    twoFAState.googleOTP = "123456"
 
-    var response = successRequest
-    successRequest.data.email_code = twoFAState.emailCode
+    var response = successRequestKey
+    successRequestKey.data.google_otp = twoFAState.googleOTP
 
     res.status(response.code).json(response)
 }
 
-export const addEmail2FA = (req, res) => {
-    console.log(`addEmail2FA, twoFAState.value: ${twoFAState.value}`)
+export const addGoogle2FA = (req, res) => {
+    console.log(`addGoogle2FA...`)
 
     // {
-    //     "uuid": "{{uuid}}",
-    //     "one_time_password": "{{email_one_time_password}}"
+    //     "one_time_password": "{{google_one_time_password}}"
     // }
 
     let list = twoFAState.list
-    let isAvailable = list.find(element => element.type == TWO_FA_TYPE.EMAIL) != undefined
-    let emailStatus = list.find(element => element.type == TWO_FA_TYPE.EMAIL)
+    let isAvailable = list.find(element => element.type == TWO_FA_TYPE.GOOGLE) != undefined
+    let googleStatus = list.find(element => element.type == TWO_FA_TYPE.GOOGLE)
 
     let twoFAParams = check2FAParams(req, twoFAState)
 
-    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, emailStatus.is_enabled == false, twoFAState)
+    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, googleStatus.is_enabled == false, twoFAState)
     
     if (!is2FANeeded) {
         twoFAState.value = twoFAState.value + 1
@@ -99,27 +96,26 @@ export const addEmail2FA = (req, res) => {
                     }
                 } else {
                     error2FARequired.errors.details.biometric = undefined
-                }
-
-        error2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
-        error2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode
-        error2FARequired.errors.details.google_otp = twoFAState.googleOTP == undefined ? null : twoFAState.googleOTP
-        error2FARequired.errors.details.sms_code = twoFAState.smsCode == undefined ? null : twoFAState.smsCode              
+                } 
+                
+                error2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
+                error2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode
+                error2FARequired.errors.details.google_otp = twoFAState.googleOTP == undefined ? null : twoFAState.googleOTP                         
     }
 
     var response = undefined
 
     let otp = req.body.one_time_password
 
-    if (otp == undefined || otp != twoFAState.emailCode) {
+    if (otp == undefined || otp != twoFAState.googleOTP) {
         response = errorAdd
     } else if (is2FANeeded) {
         response = error2FARequired
-    } else if (emailStatus.is_enabled == false) {
-        emailStatus.is_enabled = true
+    } else if (googleStatus.is_enabled == false) {
+        googleStatus.is_enabled = true
 
         twoFAState.value = twoFAState.value + 1
-        twoFAState.emailCode = undefined
+        //twoFAState.googleOTP = undefined
         
         response = success
     } else {
@@ -129,18 +125,18 @@ export const addEmail2FA = (req, res) => {
     res.status(response.code).json(response)
 }
 
-export const deleteEmail2FA = (req, res) => {
-    console.log(`deleteEmail2FA, twoFAState.value: ${twoFAState.value}`)
+export const deleteGoogle2FA = (req, res) => {
+    console.log(`deleteGoogle2FA...`)
 
 
     let list = twoFAState.list
-    let isAvailable = list.find(element => element.type == TWO_FA_TYPE.EMAIL) != undefined
-    let emailStatus = list.find(element => element.type == TWO_FA_TYPE.EMAIL)
+    let isAvailable = list.find(element => element.type == TWO_FA_TYPE.GOOGLE) != undefined
+    let googleStatus = list.find(element => element.type == TWO_FA_TYPE.GOOGLE)
 
     let twoFAParams = check2FAParams(req, twoFAState)
-    console.log(`deleteEmail2FA, twoFAParams: ${twoFAParams}`)
+    console.log(`deleteGoogle2FA, twoFAParams: ${twoFAParams}`)
 
-    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, emailStatus.is_enabled == true, twoFAState)
+    let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, googleStatus.is_enabled == true, twoFAState)
     
     if (!is2FANeeded) {
         twoFAState.value = twoFAState.value + 1
@@ -158,10 +154,10 @@ export const deleteEmail2FA = (req, res) => {
                 } else {
                     error2FARequired.errors.details.biometric = undefined
                 }
+                
                 error2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
                 error2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode
-                error2FARequired.errors.details.google_otp = twoFAState.googleOTP == undefined ? null : twoFAState.googleOTP
-                error2FARequired.errors.details.sms_code = twoFAState.smsCode == undefined ? null : twoFAState.smsCode                  
+                error2FARequired.errors.details.google_otp = twoFAState.googleOTP == undefined ? null : twoFAState.googleOTP                         
     }
 
 
@@ -173,8 +169,8 @@ export const deleteEmail2FA = (req, res) => {
     } else if (twoFAParams.withParams && twoFAParams.isError) {
         response = errorDelete
     } else {
-        emailStatus.is_enabled = false
-        twoFAState.emailCode = undefined
+        googleStatus.is_enabled = false
+        twoFAState.googleOTP = undefined
 
         response = success
     }

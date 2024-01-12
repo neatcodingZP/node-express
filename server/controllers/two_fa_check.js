@@ -1,4 +1,4 @@
-import TWO_FA_TYPE from '../globals/two_fa_type.js'
+import TWO_FA_TYPE from '../../globals/two_fa_type.js'
 
 export const check2FAParams = (req, twoFaState) => {
 
