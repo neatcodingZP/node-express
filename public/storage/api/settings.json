@@ -1,0 +1,20 @@
+{
+    "clients": {
+        "app_versions": {
+            "android": {
+                "min": "1.0.0",
+                "actual": "1.0.0"
+            },
+            "ios": {
+                "min": "1.0.0",
+                "actual": "1.0.0"
+            }
+        },
+        "intervals": {
+            "update_config": 60,
+            "update_app_soft": 60,
+            "update_translations": 60
+        },
+        "max_photo_size": 1024
+    }
+}
