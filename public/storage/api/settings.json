@@ -3,16 +3,16 @@
         "app_versions": {
             "android": {
                 "min": "1.0.0",
-                "actual": "1.0.0"
+                "actual": "1.0.5"
             },
             "ios": {
                 "min": "1.0.0",
-                "actual": "1.0.0"
+                "actual": "1.0.5"
             }
         },
         "intervals": {
             "update_config": 60,
-            "update_app_soft": 60,
+            "update_app_soft": 300,
             "update_translations": 60
         },
         "max_photo_size": 1024

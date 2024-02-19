@@ -26,11 +26,13 @@
       "errors.unauthorized": "Ошибка авторизации",
       "errors.server_error": "Ошибка сервера"
     },
-    "camera": {
-      "take_photo": "Снять фото",
-      "add_photo": "Добавить фотографию",
-      "retake_photo": "Переснять",
-      "use_photo": "Применить"
+    "photo_picker": {
+      "choose_photo": "Выберите фото",
+      "allow_access_to_media": "Нажмите чтобы\nразрешить доступ\nк Галерее",
+      "allow_access_to_camera": "Нажмите чтобы\nразрешить доступ\nк Камере",
+      "no_images_in_list": "Изображения\nне найдены",
+      "tap_to_take_photo": "Нажмите для фото",
+      "edit_image": "Редактировать изображение"
     },
     "delete_account_screen": {
       "title": "Удалить аккаунт",
@@ -226,11 +228,13 @@
       "errors.unauthorized": "Unauthorized error",
       "errors.server_error": "Server error"
     },
-    "camera": {
-      "take_photo": "Take photo",
-      "add_photo": "Add photo",
-      "retake_photo": "Take again",
-      "use_photo": "Use"
+    "photo_picker": {
+      "choose_photo": "Choose photo",
+      "allow_access_to_media": "Tap to allow\naccess to your\nGallery",
+      "allow_access_to_camera": "Tap to allow\naccess to your\nCamera",
+      "no_images_in_list": "No images\nfound",
+      "tap_to_take_photo": "Tap to take photo",
+      "edit_image": "Edit image"
     },
     "delete_account_screen": {
       "title": "Delete account",
@@ -426,11 +430,13 @@
       "errors.unauthorized": "Помилка авторизації",
       "errors.server_error": "Помилка сервера"
     },
-    "camera": {
-      "take_photo": "Зробити фото",
-      "add_photo": "Додати фото",
-      "retake_photo": "Перезняти",
-      "use_photo": "Застосувати"
+    "photo_picker": {
+      "choose_photo": "Виберіть фото",
+      "allow_access_to_media": "Натисніть щоб\nдозволити доступ\nдо Галереї",
+      "allow_access_to_camera": "Натисніть щоб\nдозволити доступ\nдо Камери",
+      "no_images_in_list": "Зображення\nне знайдені",
+      "tap_to_take_photo": "Натиснить для фото",
+      "edit_image": "Редагувати зображення"
     },
     "delete_account_screen": {
       "title": "Видалити акаунт",
