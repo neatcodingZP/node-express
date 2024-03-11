@@ -12,7 +12,7 @@
         },
         "intervals": {
             "update_config": 60,
-            "update_app_soft": 300,
+            "update_app_soft": 600,
             "update_translations": 60
         },
         "max_photo_size": 1024

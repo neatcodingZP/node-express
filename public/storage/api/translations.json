@@ -15,7 +15,9 @@
       "save": "Сохранить",
       "to_settings": "Настройки",
       "back": "Назад",
-      "try_again": "Попробовать еще раз"
+      "try_again": "Попробовать еще раз",
+      "delete": "Удалить",
+      "search": "Поиск"
     },
     "dialog_messages": {
       "attention" : "Внимание!",
@@ -52,7 +54,10 @@
       "list_end_placeholder": "Конец списка сообщений",
       "statuses_unread": "Непрочитано",
       "statuses_read": "Прочитано",
-      "statuses_deleted": "Удалено"
+      "statuses_deleted": "Удалено",
+      "list_title": "Уведомления",
+      "read_all": "Прочитать все",
+      "unread_count_format": ":value непрочитанных"
     },
     "permissions": {
       "dialogs_title": "Требуются разрешения",
@@ -217,7 +222,9 @@
       "save": "Save",
       "to_settings": "Settings",
       "back": "Back",
-      "try_again": "Try again"
+      "try_again": "Try again",
+      "delete": "Delete",
+      "search": "Search"
     },
     "dialog_messages": {
       "attention" : "Attention!",
@@ -254,7 +261,10 @@
       "list_end_placeholder": "End of the list",
       "statuses_unread": "Unread",
       "statuses_read": "Read",
-      "statuses_deleted": "Deleted"
+      "statuses_deleted": "Deleted",
+      "list_title": "Notifications",
+      "read_all": "Read all",
+      "unread_count_format": ":value unread"
     },
     "permissions": {
       "dialogs_title": "Permissions required",
@@ -419,7 +429,9 @@
       "save": "Зберегти",
       "to_settings": "Налаштування",
       "back": "Назад",
-      "try_again": "Спробувати ще раз"
+      "try_again": "Спробувати ще раз",
+      "delete": "Видалити",
+      "search": "Пошук"
     },
     "dialog_messages": {
       "attention" : "Увага!",
@@ -456,7 +468,10 @@
       "list_end_placeholder": "Більше немає повідомлень",
       "statuses_unread": "Непрочитано",
       "statuses_read": "Прочитано",
-      "statuses_deleted": "Видалено"
+      "statuses_deleted": "Видалено",
+      "list_title": "Сповіщення",
+      "read_all": "Прочитати усі",
+      "unread_count_format": ":value непрочитаних"
     },
     "permissions": {
       "dialogs_title": "Необхідні дозволи",
