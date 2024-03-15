@@ -46,7 +46,7 @@
     },
     "logout": {
       "title": "Выйти из аккунта",
-      "description": "Вы уверены что хотите выйти из аккаунта? Все данные на устройстве будут удалены.",
+      "description": "Вы уверены что хотите выйти из аккаунта?",
       "confirm": "Выйти из аккаунта"
     },
     "messaging": {
@@ -83,12 +83,14 @@
     "sms": {
       "phone": "Телефон",
       "code": "СМС код",
-      "sms_was_sent_to_phone_number_format": "СМС код был отправлен на номер телефона :value",
+      "enter_code_sent_to_phone_number_format": "Введите СМС код, который мы отправили Вам на :value",
       "code_is_valid_seconds_format": "СМС код действителен еще :value секунд",
       "code_had_expired": "СМС код уже не действителен",
-      "send_again": "Отправить СМС",
+      "send_again": "Отправить СМС еще раз",
+      "send_again_in": "Отправить СМС через",
       "unable_send_sms_at_the_moment": "Не удалось отправить СМС-код",
-      "can_ask_another_sms_in_seconds_format": "СМС код может быть отправлен через  :value секунд"
+      "can_ask_another_sms_in_seconds_format": "СМС код может быть отправлен через  :value секунд",
+      "phone_rationale": "На указанный номер телефона прийдет СМС с кодом"
     },
     "two_fa": {
       "otp_send_to_format": "Отправить код\nна :value",
@@ -253,7 +255,7 @@
     },
     "logout": {
       "title": "Logout",
-      "description": "Are you sure to logout? All data on the device will be deleted.",
+      "description": "Are you sure to logout?",
       "confirm": "Logout"
     },
     "messaging": {
@@ -290,12 +292,14 @@
     "sms": {
       "phone": "Phone",
       "code": "SMS code",
-      "sms_was_sent_to_phone_number_format": "SMS code was sent to :value",
-      "code_is_valid_seconds_format": "SMS code will expire in :value секунд",
+      "enter_code_sent_to_phone_number_format": "Enter the SMS code, that we sent to :value",
+      "code_is_valid_seconds_format": "SMS code will expire in :value seconds",
       "code_had_expired": "SMS code expired",
-      "send_again": "Send SMS",
+      "send_again": "Send SMS again",
+      "send_again_in": "Send SMS in", 
       "unable_send_sms_at_the_moment": "Unable to send SMS at the moment",
-      "can_ask_another_sms_in_seconds_format": "Ask another SMS code in :value секунд"
+      "can_ask_another_sms_in_seconds_format": "Ask another SMS code in :value seconds",
+      "phone_rationale": "Phone number is needed to send you SMS code"
     },
     "two_fa": {
       "otp_send_to_format": "Send code\nto :value",
@@ -460,7 +464,7 @@
     },
     "logout": {
       "title": "Вийти з акаунта",
-      "description": "Ви впевнені, що бажаєте вийти з акаунта? Усі дані на пристої будуть видалені.",
+      "description": "Ви впевнені, що бажаєте вийти з акаунта?",
       "confirm": "Вийти з акаунта"
     },
     "messaging": {
@@ -497,12 +501,14 @@
     "sms": {
       "phone": "Телефон",
       "code": "СМС код",
-      "sms_was_sent_to_phone_number_format": "СМС код відправлено на номер телефону :value",
+      "enter_code_sent_to_phone_number_format": "Введіть СМС код, який ми надістали Вам на :value",
       "code_is_valid_seconds_format": "СМС код дійсний ще :value секунд",
       "code_had_expired": "СМС код вже недійсний",
       "send_again": "Відправити СМС",
+      "send_again_in": "Відправити СМС через",
       "unable_send_sms_at_the_moment": "Не вдалось відправити СМС-код",
-      "can_ask_another_sms_in_seconds_format": "СМС код може бути відправлений через  :value секунд"
+      "can_ask_another_sms_in_seconds_format": "СМС код може бути відправлений через  :value секунд",
+      "phone_rationale": "На вказаний номер телефону прийде СМС з кодом"
     },
     "two_fa": {
       "otp_send_to_format": "Відправити код\nна :value",
