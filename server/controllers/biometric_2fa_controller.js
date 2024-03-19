@@ -58,7 +58,6 @@ let errorDelete2FARequired = {
 
 export const addBiometric2FA = (req, res) => {
     console.log(`twoFAState.value: ${twoFAState.value}`)
-
     // {
     //     "name": "{{biometric_name}}",
     //     "public_key": "{{biometric_public_key}}"
@@ -110,10 +109,14 @@ export const addBiometric2FA = (req, res) => {
             challenge: "555"
         }
 
+        let name = req.body.name ?? "unknown";
+
+        console.log(`add biometric, name: ${name}, public_key: ${req.body.public_key}`);
+
         twoFAState.list[0].list = [
             {
                 uuid: "biometric_uuid_1",
-                name: "Huliphone XS Pro",
+                name: name,
                 is_current_device: true,
                 created_at: "2023-12-31 23:59:59",
                 used_at: "2023-12-31 23:59:59"
