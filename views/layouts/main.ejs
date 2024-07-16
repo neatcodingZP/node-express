@@ -19,7 +19,17 @@
     </div>
 
     <script type="text/javascript">
+        var isFlutterInAppWebViewReady = false;
+        window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
+          isFlutterInAppWebViewReady = true;
+        });
+
         function onTelegramAuth(user) {
+            if (isFlutterInAppWebViewReady) {
+                const args = [user.id];
+                window.flutter_inappwebview.callHandler('myHandlerName', ...args);
+            }
+
           console.log('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
           alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
         }
