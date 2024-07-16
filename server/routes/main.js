@@ -26,9 +26,22 @@ const about = (req, res) => {
     res.render('about', { locals } )
 }
 
+// Login page
+const login = (req, res) => {
+    console.log(`login page`)
+
+    const locals = {
+        title: 'Neatcoding',
+        description: 'Dummy login page'
+    }
+    res.render('about', { locals } )
+}
+
 router.get('', main)
 
 router.get('/about', about)
+
+router.get('/login', login)
 
 
 export default router
