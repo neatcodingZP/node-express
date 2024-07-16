@@ -34,7 +34,7 @@ const login = (req, res) => {
         title: 'Neatcoding',
         description: 'Dummy login page'
     }
-    res.render('about', { locals } )
+    res.render('login', { locals } )
 }
 
 router.get('', main)
