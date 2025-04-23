@@ -16,8 +16,13 @@ let successRequestKey = {
     success: true,
     code: 200,
     data: {
-        secret_key: "XYZ123XYZ123", //"{{google_2fa_secret_key}}",
-        qr_code: "Secret QR code text" //"{{base64_qr_code}}"
+        one_time_uuid: "one_time_uuid",
+        google_secret_key: "google_secret_key", // Необязательный, присутствует с type=google
+        google_qr_code: "google_qr_code_in_svg" // Необязательный, присутствует с type=google
+        
+        // one_time_password_length: 6,
+        // expire_in: 30,
+        // repeat_in: 40
     }
 }
 
@@ -90,12 +95,14 @@ export const addGoogle2FA = (req, res) => {
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
-                    error2FARequired.errors.details.biometric = {
-                        uuid: "challenge_uuid",
-                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    error2FARequired.errors.details.passing_data = {
+                        biometric_challenge_uuid: "biometric_challenge_uuid",
+                        biometric_encrypted_challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                        // uuid: "challenge_uuid",
+                        // challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
                     }
                 } else {
-                    error2FARequired.errors.details.biometric = undefined
+                    error2FARequired.errors.details.passing_data = undefined
                 } 
                 
                 error2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
@@ -105,9 +112,11 @@ export const addGoogle2FA = (req, res) => {
 
     var response = undefined
 
+    let uuid = req.body.one_time_uuid
     let otp = req.body.one_time_password
 
     if (otp == undefined || otp != twoFAState.googleOTP) {
+        console.log(`addGoogle2FA ERROR otp: ${otp}, required: ${twoFAState.googleOTP}`)
         response = errorAdd
     } else if (is2FANeeded) {
         response = error2FARequired
@@ -119,6 +128,7 @@ export const addGoogle2FA = (req, res) => {
         
         response = success
     } else {
+        console.log(`addGoogle2FA ERROR already enabled`)
         response = errorAdd
     }
 
@@ -147,12 +157,14 @@ export const deleteGoogle2FA = (req, res) => {
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
-                    error2FARequired.errors.details.biometric = {
-                        uuid: "challenge_uuid",
-                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    error2FARequired.errors.details.passing_data = {
+                        biometric_challenge_uuid: "biometric_challenge_uuid",
+                        biometric_encrypted_challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                        // uuid: "challenge_uuid",
+                        // challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
                     }
                 } else {
-                    error2FARequired.errors.details.biometric = undefined
+                    error2FARequired.errors.details.passing_data = undefined
                 }
                 
                 error2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode

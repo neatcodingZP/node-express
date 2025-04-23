@@ -90,12 +90,14 @@ export const list2FA = (req, res) => {
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
-                    failure2FARequired.errors.details.biometric = {
-                        uuid: "challenge_uuid",
-                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    failure2FARequired.errors.details.passing_data = {
+                        biometric_challenge_uuid: "biometric_challenge_uuid",
+                        biometric_encrypted_challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                        // uuid: "challenge_uuid",
+                        // challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
                     }
                 } else {
-                    failure2FARequired.errors.details.biometric = undefined
+                    failure2FARequired.errors.details.passing_data = undefined
                 }
                 
                 failure2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode

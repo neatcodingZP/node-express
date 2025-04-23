@@ -69,12 +69,14 @@ export const addPin2FA = (req, res) => {
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
-                    failure2FARequired.errors.details.biometric = {
-                        uuid: "challenge_uuid",
-                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    failure2FARequired.errors.details.passing_data = {
+                        biometric_challenge_uuid: "biometric_challenge_uuid",
+                        biometric_encrypted_challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                        // uuid: "challenge_uuid",
+                        // challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
                     }
                 } else {
-                    failure2FARequired.errors.details.biometric = undefined
+                    failure2FARequired.errors.details.passing_data = undefined
                 } 
                 
                 failure2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
@@ -106,17 +108,29 @@ export const addPin2FA = (req, res) => {
 
 let failureWrongPin = {
     success: false,
-    code: 403, // Forbidden
+    code: 422, // validation error 
     errors: {
         message: "Wrong PIN code",
         details: {
-            is_two_factor_auth: true
+            is_two_factor_auth: true,
+            pin: {
+                translation_key: "pin.errors.validation",
+                replacements: { // Необязательный
+                    type: "scalar",
+                    value: "some replacement"
+                }, 
+                fallback_translation_key: "Pin code error fallback", // Необязательный
+                fallback_replacements: { // Необязательный, если отсутствует, то необходимо использовать "replacements" при переводе "fallback_translation_key"
+                    type: "translation",
+                    value: "pin.replacement.key"
+                } 
+            }
         }
     }
 }
 
 export const deletePin2FA = (req, res) => {
-    console.log(`twoFAState.value: ${twoFAState.value}`)
+    console.log(`deletePin2FA twoFAState.value: ${twoFAState.value}`)
     
     let list = twoFAState.list
     let isAvailable = list.find(element => element.type == TWO_FA_TYPE.PIN) != undefined
@@ -125,7 +139,8 @@ export const deletePin2FA = (req, res) => {
     let twoFAParams = check2FAParams(req, twoFAState)
 
     let is2FANeeded = !twoFAParams.withParams && is2FARequired(req, twoFAState.value, isAvailable, pinStatus.is_enabled == true, twoFAState)
-    
+    console.log(`is2FANeeded: ${is2FANeeded}`)
+
     if (!is2FANeeded) {
         twoFAState.value = twoFAState.value + 1
     } else {
@@ -135,12 +150,14 @@ export const deletePin2FA = (req, res) => {
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
-                    failure2FARequired.errors.details.biometric = {
-                        uuid: "challenge_uuid",
-                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    failure2FARequired.errors.details.passing_data = {
+                        biometric_challenge_uuid: "biometric_challenge_uuid",
+                        biometric_encrypted_challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                        // uuid: "challenge_uuid",
+                        // challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
                     }
                 } else {
-                    failure2FARequired.errors.details.biometric = undefined
+                    failure2FARequired.errors.details.passing_data = undefined
                 }  
                 
                 failure2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode

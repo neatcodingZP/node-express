@@ -37,13 +37,61 @@ let failure2FARequired = {
     }
 }
 
+// let failure2FAError = {
+//     success: false,
+//     code: 422, // validation
+//     errors: {
+//         message: "2FA erors",
+//         details: {
+//             is_two_factor_auth: true
+//         }
+//     }
+// }
+
+
 let failure2FAError = {
     success: false,
-    code: 422, // Forbidden
+    code: 422, // validation error 
     errors: {
-        message: "2FA erors",
+        message: "Wrong PIN code",
         details: {
-            is_two_factor_auth: true
+            is_two_factor_auth: true,
+            pin: [
+                {
+                    translation_key: "pin.errors.validation",
+                    replacements: { // Необязательный
+                        "amount": { 
+                            type: "scalar",
+                            value: "some replacement"
+                        }
+                    }, 
+                    fallback_translation_key: "Pin code error fallback", // Необязательный
+                    fallback_replacements: { // Необязательный, если отсутствует, то необходимо использовать "replacements" при переводе "fallback_translation_key"
+                        "amount": { 
+                           type: "translation",
+                            value: "pin.replacement.key"
+                        }
+                    } 
+                }
+            ],
+            one_time_password: [
+                {
+                    translation_key: "otp.errors.validation",
+                    replacements: { // Необязательный
+                        "amount": { 
+                            type: "scalar",
+                            value: "some replacement"
+                        }
+                    }, 
+                    fallback_translation_key: "Pin code error fallback", // Необязательный
+                    fallback_replacements: { // Необязательный, если отсутствует, то необходимо использовать "replacements" при переводе "fallback_translation_key"
+                        "amount": { 
+                           type: "translation",
+                            value: "pin.replacement.key"
+                        }
+                    } 
+                }
+            ],
         }
     }
 }
@@ -71,12 +119,14 @@ export const dummyWith2FA = (req, res) => {
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
-                    failure2FARequired.errors.details.biometric = {
-                        uuid: "challenge_uuid",
-                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    failure2FARequired.errors.details.passing_data = {
+                        biometric_challenge_uuid: "biometric_challenge_uuid",
+                        biometric_encrypted_challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                        // uuid: "challenge_uuid",
+                        // challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
                     }
                 } else {
-                    failure2FARequired.errors.details.biometric = undefined
+                    failure2FARequired.errors.details.passing_data = undefined
                 }
                 failure2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
                 failure2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode

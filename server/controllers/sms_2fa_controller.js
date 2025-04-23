@@ -16,8 +16,8 @@ let successRequest = {
     success: true,
     code: 200,
     data: {
-        uuid: "sms_uuid",
-        symbols_count: 4,
+        one_time_uuid: "one_time_uuid",
+        one_time_password_length: 4,
         expire_in: 30,
         repeat_in: 40
     }
@@ -93,12 +93,14 @@ export const addSms2FA = (req, res) => {
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
-                    error2FARequired.errors.details.biometric = {
-                        uuid: "challenge_uuid",
-                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    error2FARequired.errors.details.passing_data = {
+                        biometric_challenge_uuid: "biometric_challenge_uuid",
+                        biometric_encrypted_challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                        // uuid: "challenge_uuid",
+                        // challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
                     }
                 } else {
-                    error2FARequired.errors.details.biometric = undefined
+                    error2FARequired.errors.details.passing_data = undefined
                 }
 
         error2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
@@ -151,12 +153,14 @@ export const deleteSms2FA = (req, res) => {
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
-                    error2FARequired.errors.details.biometric = {
-                        uuid: "challenge_uuid",
-                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    error2FARequired.errors.details.passing_data = {
+                        biometric_challenge_uuid: "biometric_challenge_uuid",
+                        biometric_encrypted_challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                        // uuid: "challenge_uuid",
+                        // challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
                     }
                 } else {
-                    error2FARequired.errors.details.biometric = undefined
+                    error2FARequired.errors.details.passing_data = undefined
                 }
                 error2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
                 error2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode

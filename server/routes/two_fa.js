@@ -8,6 +8,10 @@ import { requestSms2FA, addSms2FA, deleteSms2FA } from '../controllers/sms_2fa_c
 
 import { dummyWith2FA } from '../controllers/dummy_2fa_controller.js'
 import { list2FA } from '../controllers/list_2fa_controller.js'
+import { activate2FA } from '../controllers/activate_2fa_controller.js'
+import { preActivate2FA } from '../controllers/pre_activate_2fa_controller.js'
+import { preValidate2FA } from '../controllers/pre_validate_2fa_controller.js'
+import { deactivate2FA } from '../controllers/deactivate_2fa_controller.js'
 
 
 const router = Router()
@@ -18,7 +22,19 @@ const TWO_FA_ROUTE = "2fa"
 router.post(`/${TWO_FA_ROUTE}/dummy`, dummyWith2FA)
 
 // List
-router.post(`/${TWO_FA_ROUTE}/list`, list2FA)
+router.get(`/${TWO_FA_ROUTE}`, list2FA)
+
+// Activate
+router.post(`/${TWO_FA_ROUTE}`, activate2FA)
+
+// Pre-Activate
+router.post(`/${TWO_FA_ROUTE}/pre-activate`, preActivate2FA)
+
+// Pre-Validate
+router.post(`/${TWO_FA_ROUTE}/pre-validate`, preValidate2FA)
+
+// Delete
+router.delete(`/${TWO_FA_ROUTE}`, deactivate2FA)
 
 // PIN
 let pinRoute = 'pin'

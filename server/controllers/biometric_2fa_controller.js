@@ -59,8 +59,8 @@ let errorDelete2FARequired = {
 export const addBiometric2FA = (req, res) => {
     console.log(`twoFAState.value: ${twoFAState.value}`)
     // {
-    //     "name": "{{biometric_name}}",
-    //     "public_key": "{{biometric_public_key}}"
+    //     "biometric_name": "{{biometric_name}}",
+    //     "biometric_public_key": "{{biometric_public_key}}"
     // }
 
     let list = twoFAState.list
@@ -77,15 +77,17 @@ export const addBiometric2FA = (req, res) => {
         errorDelete2FARequired.errors.details.allowed_types = 
             list
                 .filter(element => element.is_enabled == true)
-                .map(element => element.type)
+                .map(element => element.type) 
 
                 if (twoFAState.biometric != undefined) {
-                    errorDelete2FARequired.errors.details.biometric = {
-                        uuid: "challenge_uuid",
-                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    errorDelete2FARequired.errors.details.passing_data = {
+                        biometric_challenge_uuid: "biometric_challenge_uuid",
+                        biometric_encrypted_challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                        // uuid: "challenge_uuid",
+                        // challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
                     }
                 } else {
-                    errorDelete2FARequired.errors.details.biometric = undefined
+                    errorDelete2FARequired.errors.details.passing_data = undefined
                 }
                 errorDelete2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
                 errorDelete2FARequired.errors.details.email_code = twoFAState.emailCode == undefined ? null : twoFAState.emailCode
@@ -105,13 +107,13 @@ export const addBiometric2FA = (req, res) => {
         twoFAState.value = twoFAState.value + 1
         
         twoFAState.biometric = {
-            key: req.body.public_key,
+            key: req.body.biometric_public_key,
             challenge: "555"
         }
 
-        let name = req.body.name ?? "unknown";
+        let name = req.body.biometric_name ?? "unknown";
 
-        console.log(`add biometric, name: ${name}, public_key: ${req.body.public_key}`);
+        console.log(`add biometric, name: ${name}, public_key: ${req.body.biometric_public_key}`);
 
         twoFAState.list[0].list = [
             {
@@ -132,7 +134,7 @@ export const addBiometric2FA = (req, res) => {
 }
 
 export const deleteBiometric2FA = (req, res) => {
-    let biometric_uuid = req.params.biometric_uuid
+    let biometric_uuid = req.query.biometric_uuid
     console.log(`deleteBiometric2FA, biometric_uuid: ${biometric_uuid}, twoFAState.value: ${twoFAState.value}`)
 
     // {
@@ -156,12 +158,14 @@ export const deleteBiometric2FA = (req, res) => {
                 .map(element => element.type)
 
                 if (twoFAState.biometric != undefined) {
-                    errorDelete2FARequired.errors.details.biometric = {
-                        uuid: "challenge_uuid",
-                        challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                    errorDelete2FARequired.errors.details.passing_data = {
+                        biometric_challenge_uuid: "biometric_challenge_uuid",
+                        biometric_encrypted_challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
+                        // uuid: "challenge_uuid",
+                        // challenge: (Number(twoFAState.biometric.challenge) + Number(twoFAState.biometric.key)).toString()
                     }
                 } else {
-                    errorDelete2FARequired.errors.details.biometric = undefined
+                    errorDelete2FARequired.errors.details.passing_data = undefined
                 } 
 
                 errorDelete2FARequired.errors.details.pin_code = twoFAState.pinCode == undefined ? null : twoFAState.pinCode
