@@ -4,7 +4,7 @@ const router = Router()
 
 const s1 = (req, res) => {
     res.status(200).json({
-        deeplink: "Deep link page s1"
+        deeplink: "Deep link page s1" 
     })
 }
 
