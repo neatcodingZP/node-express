@@ -5,6 +5,7 @@ import expressEjsLayouts from 'express-ejs-layouts'
 import twoFARoutes from './server/routes/two_fa.js'
 import mainRoutes from './server/routes/main.js'
 import appVersionsRoutes from './server/routes/app_versions.js'
+import deeplinksRoutes from './server/routes/deep_links.js'
 
 import connectDB from './server/config/db.js'
 
@@ -39,6 +40,8 @@ app.use('/', mainRoutes)
 app.use(twoFARoutes)
 
 app.use('/versions/', appVersionsRoutes)
+
+app.use(deeplinksRoutes)
 
 // app.use(function (req, res, next) {
 //     res.set('Cache-control', 'public, max-age=300')
