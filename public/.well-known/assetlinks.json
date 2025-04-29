@@ -6,4 +6,14 @@
       "sha256_cert_fingerprints":
       ["42:D5:FE:EA:26:B1:FF:E9:41:0C:8F:59:08:3C:45:C5:42:ED:43:32:6A:B9:AD:4B:B5:B0:FC:39:B0:33:6B:5A"]
     }
-}] 
+},
+{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "wallet_platform",
+    "package_name": "com.ruta.wallet_platform",
+    "sha256_cert_fingerprints":
+    ["42:D5:FE:EA:26:B1:FF:E9:41:0C:8F:59:08:3C:45:C5:42:ED:43:32:6A:B9:AD:4B:B5:B0:FC:39:B0:33:6B:5A"]
+  }
+}
+] 
